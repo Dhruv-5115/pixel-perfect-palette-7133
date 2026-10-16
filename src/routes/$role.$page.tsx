@@ -1,0 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { Workspace } from '@/components/ucan/workspace';
+export const Route=createFileRoute('/$role/$page')({head:({params})=>{const title=`${params.page.replaceAll('-',' ').replace(/\b\w/g,c=>c.toUpperCase())} · ${params.role.charAt(0).toUpperCase()+params.role.slice(1)} — U CAN`;const description=`U CAN ${params.role} demo workspace for ${params.page.replaceAll('-',' ')} and professionally guided rehabilitation care.`;return{meta:[{title},{name:'description',content:description},{property:'og:title',content:title},{property:'og:description',content:description},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'},{name:'robots',content:'noindex'}]}},component:Page});
+function Page(){const{role,page}=Route.useParams();return <Workspace role={role} page={page}/>}

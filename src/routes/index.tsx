@@ -1,24 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowUpRight, Plus, ShieldCheck, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { PublicShell, CompanionPreview, roles, portrait } from '@/components/ucan/shared';
+export const Route=createFileRoute('/')({head:()=>({meta:[{title:'U CAN — Better Communication. Brighter Futures.'},{name:'description',content:'Human-guided speech and language therapy, personalized practice, and connected professional care for every stage of life.'},{property:'og:title',content:'U CAN — Better Communication. Brighter Futures.'},{property:'og:description',content:'A thoughtful space for speech practice and connected rehabilitation care.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]}),component:Home});
+function Home(){return <PublicShell><div className="wrap"><section className="hero"><div><div className="hero-tags"><span><span className="dot"/>AI-Assisted Speech Practice</span><span><ShieldCheck size={10}/>Clinician-Guided Care</span></div><h1>Better Communication.<br/><em>Brighter Futures.</em></h1><p className="hero-copy">AI-assisted speech rehabilitation and connected clinical practice, combining personalized care, professional guidance, and a companion that listens.</p><div className="hero-buttons"><Button size="lg" asChild><Link to="/$section" params={{section:'register'}}>Start Your Journey <Plus size={15}/></Link></Button><Button variant="outline" size="lg" asChild><Link to="/$section" params={{section:'features'}}>Explore U CAN <ArrowUpRight size={14}/></Link></Button></div><div className="people-note"><div className="mini-faces"><img src={portrait} alt=""/><img src={portrait} alt=""/><img src={portrait} alt=""/></div><span>For every voice. At every stage of life.</span></div></div><CompanionPreview/></section></div><section className="value-band" aria-label="Our care principles"><div className="wrap value-grid">{[['Your pace','Personalized Practice','Meaningful activities shaped around individual goals and everyday life.'],['One team','Connected Clinical Care','Patients, therapists, and supervisors working together, with clarity.'],['Human first','Professional Oversight','Clinical judgment stays with qualified professionals, always.'],['Every voice','Inclusive by Design','Thoughtful support for children, teenagers, and adults.']].map(([value,title,desc])=><div className="value-item" key={title}><b>{value}</b><h3>{title}</h3><p>{desc}</p></div>)}</div></section><section className="section wrap"><div className="section-title"><div className="eyebrow">The clinical framework</div><h2>The Clinical Feedback Loop</h2><p>A connected journey from professional planning to personal practice, with expert guidance at every step.</p></div><div className="workflow-grid">{[['01','Target Configuration by SLP','Set clear communication goals, select meaningful exercises, and shape a therapy plan around each patient’s individual needs.','Define the Plan','plans'],['02','Daily Avatar Practice','Build confidence through guided repetition and everyday conversation, with an AI companion that makes space for your voice.','Find Your Rhythm','avatar'],['03','Supervisor Sign-Off & Review','Bring professional insight to every milestone. Review session notes, guide clinicians, and approve progress with care.','Close the Loop','reviews']].map(([number,title,desc,action,page])=><article className="workflow-card" key={number}><span className="number">{number}</span><h3>{title}</h3><p>{desc}</p><Link className="text-link" to="/$role/$page" params={{role:page==='avatar'?'patient':page==='reviews'?'supervisor':'therapist',page}}>{action}<ArrowUpRight size={12}/></Link></article>)}</div></section><section className="role-band section"><div className="wrap"><div className="section-title"><div className="eyebrow">Connected, by design</div><h2>Role Gateway Matrix</h2><p>Tailored workspaces for every role, united by one goal: better communication.</p></div><div className="role-grid">{roles.map(role=><article className="role-card" key={role.id}><div className="role-icon"><role.icon size={17}/></div><h3>{role.name}</h3><p>{role.desc}</p><Link className="text-link" to="/$role/$page" params={{role:role.id,page:'dashboard'}}>{role.action}<ArrowUpRight size={12}/></Link></article>)}</div></div></section><div className="wrap"><section className="bottom-cta"><div><div className="eyebrow"><Sparkles size={11}/>A thoughtful approach to connected care</div><h2>Committed to Clinical Excellence &<br/>Patient Dignity.</h2><p>Technology that supports people. Care that respects every voice.</p></div><div className="bottom-cta-actions"><Button asChild><Link to="/$section" params={{section:'contact'}}>Request a Conversation <ArrowUpRight size={13}/></Link></Button><Button variant="outline" asChild><Link to="/$section" params={{section:'professionals'}}>Meet the Framework</Link></Button></div></section></div></PublicShell>}
